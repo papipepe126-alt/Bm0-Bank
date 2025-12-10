@@ -14,7 +14,7 @@
         }
         
         body {
-            background-color: #f5f7fa;
+            background-color: #f8f9fa;
             color: #333;
             line-height: 1.6;
         }
@@ -24,10 +24,10 @@
             min-height: 100vh;
         }
         
-        /* Sidebar */
+        /* Sidebar - Bleu BMO */
         .sidebar {
             width: 250px;
-            background-color: #1a2b4c;
+            background: linear-gradient(180deg, #0033A0 0%, #00247D 100%);
             color: white;
             padding: 20px 0;
         }
@@ -35,14 +35,16 @@
         .logo {
             text-align: center;
             padding: 20px;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
-            border-bottom: 1px solid #2a3b5c;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             color: #fff;
+            background-color: rgba(255, 255, 255, 0.05);
         }
         
         .logo span {
-            color: #ff6b00;
+            color: #ffffff;
+            font-weight: 300;
         }
         
         .nav-menu {
@@ -54,17 +56,25 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
         }
         
-        .nav-item:hover, .nav-item.active {
-            background-color: #2a3b5c;
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #ffffff;
+        }
+        
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid #ffffff;
         }
         
         .nav-item i {
             margin-right: 10px;
             width: 20px;
             text-align: center;
+            color: rgba(255, 255, 255, 0.9);
         }
         
         /* Main content */
@@ -72,6 +82,7 @@
             flex: 1;
             padding: 20px;
             overflow-y: auto;
+            background-color: #f8f9fa;
         }
         
         /* Header */
@@ -81,12 +92,17 @@
             align-items: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 2px solid #e0e7ff;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 51, 160, 0.08);
         }
         
         .user-info h1 {
-            color: #1a2b4c;
+            color: #0033A0;
             font-size: 28px;
+            font-weight: 600;
         }
         
         .user-info p {
@@ -95,18 +111,21 @@
         }
         
         .logout-btn {
-            background-color: #ff6b00;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 10px 25px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.15);
         }
         
         .logout-btn:hover {
-            background-color: #e05a00;
+            background: linear-gradient(135deg, #00247D 0%, #001a5a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 51, 160, 0.2);
         }
         
         /* Quick actions */
@@ -118,26 +137,36 @@
         }
         
         .action-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.08);
             flex: 1;
             min-width: 200px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
+            border: 1px solid #e0e7ff;
         }
         
         .action-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 51, 160, 0.15);
+            border-color: #0033A0;
         }
         
         .action-card i {
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: #1a2b4c;
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .action-card h3 {
+            color: #0033A0;
+            font-size: 16px;
+            font-weight: 600;
         }
         
         /* Accounts section */
@@ -146,11 +175,12 @@
         }
         
         .section-title {
-            font-size: 22px;
-            color: #1a2b4c;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ff6b00;
+            font-size: 24px;
+            color: #0033A0;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #0033A0;
+            font-weight: 600;
         }
         
         .accounts-grid {
@@ -160,15 +190,23 @@
         }
         
         .account-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.08);
             position: relative;
+            border: 1px solid #e0e7ff;
+            transition: all 0.3s;
+        }
+        
+        .account-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 51, 160, 0.12);
         }
         
         .account-card.blocked {
-            border-left: 5px solid #ff3860;
+            border-left: 5px solid #d32f2f;
+            background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
         }
         
         .account-card.blocked::after {
@@ -176,68 +214,83 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #ff3860;
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
             color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
             font-weight: bold;
+            letter-spacing: 0.5px;
         }
         
         .account-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .account-type {
-            font-weight: bold;
-            color: #1a2b4c;
+            font-weight: 600;
+            color: #0033A0;
+            font-size: 18px;
         }
         
         .account-number {
             color: #666;
             font-size: 14px;
+            background-color: rgba(0, 51, 160, 0.05);
+            padding: 3px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 5px;
         }
         
         .account-balance {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1a2b4c;
+            font-size: 28px;
+            font-weight: 700;
+            color: #0033A0;
+            margin-bottom: 5px;
         }
         
         .account-actions {
-            margin-top: 15px;
+            margin-top: 20px;
             display: flex;
             gap: 10px;
         }
         
         .btn {
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 14px;
         }
         
         .btn-primary {
-            background-color: #1a2b4c;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
             color: white;
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.15);
         }
         
         .btn-primary:hover {
-            background-color: #2a3b5c;
+            background: linear-gradient(135deg, #00247D 0%, #001a5a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 51, 160, 0.2);
         }
         
         .btn-secondary {
-            background-color: #f0f0f0;
-            color: #333;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e0e7ff 100%);
+            color: #0033A0;
+            border: 1px solid #d0d9ff;
         }
         
         .btn-secondary:hover {
-            background-color: #e0e0e0;
+            background: linear-gradient(135deg, #e0e7ff 0%, #d0d9ff 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.1);
         }
         
         /* Login page */
@@ -246,23 +299,27 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #1a2b4c;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
         }
         
         .login-box {
-            background-color: white;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 15px;
             padding: 40px;
             width: 100%;
             max-width: 450px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .login-title {
             text-align: center;
-            color: #1a2b4c;
+            color: #0033A0;
             margin-bottom: 30px;
-            font-size: 24px;
+            font-size: 26px;
+            font-weight: 600;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #0033A0;
         }
         
         .form-group {
@@ -272,21 +329,25 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
+            color: #0033A0;
             font-weight: 500;
         }
         
         .form-control {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 14px 15px;
+            border: 2px solid #e0e7ff;
+            border-radius: 8px;
             font-size: 16px;
+            transition: all 0.3s;
+            background-color: #f8f9ff;
         }
         
         .form-control:focus {
             outline: none;
-            border-color: #ff6b00;
+            border-color: #0033A0;
+            box-shadow: 0 0 0 3px rgba(0, 51, 160, 0.1);
+            background-color: white;
         }
         
         .checkbox-group {
@@ -297,23 +358,32 @@
         
         .checkbox-group input {
             margin-right: 10px;
+            accent-color: #0033A0;
+        }
+        
+        .checkbox-group label {
+            color: #0033A0;
+            font-weight: 500;
         }
         
         .login-btn {
             width: 100%;
-            padding: 15px;
-            background-color: #ff6b00;
+            padding: 16px;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.15);
         }
         
         .login-btn:hover {
-            background-color: #e05a00;
+            background: linear-gradient(135deg, #00247D 0%, #001a5a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 51, 160, 0.2);
         }
         
         .login-links {
@@ -322,25 +392,54 @@
         }
         
         .login-links a {
-            color: #1a2b4c;
+            color: #0033A0;
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: block;
+            margin-bottom: 10px;
         }
         
         .login-links a:hover {
+            color: #00247D;
             text-decoration: underline;
         }
         
-        .login-info {
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            padding: 15px;
-            margin-top: 30px;
-            font-size: 14px;
+        .help-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e7ff;
         }
         
-        .login-info h3 {
-            margin-bottom: 10px;
-            color: #1a2b4c;
+        .help-link a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .help-link a:hover {
+            color: #0033A0;
+            text-decoration: underline;
+        }
+        
+        .security-notice {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f8f9ff;
+            border-radius: 8px;
+            border: 1px solid #e0e7ff;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .security-notice i {
+            color: #0033A0;
+            margin-right: 5px;
         }
         
         /* Modal */
@@ -351,27 +450,31 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 51, 160, 0.5);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(3px);
         }
         
         .modal-content {
-            background-color: white;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 15px;
             padding: 30px;
             width: 90%;
             max-width: 500px;
             position: relative;
+            box-shadow: 0 15px 35px rgba(0, 51, 160, 0.2);
+            border: 1px solid #e0e7ff;
         }
         
         .modal-title {
             font-size: 22px;
-            color: #1a2b4c;
+            color: #0033A0;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #ff6b00;
+            border-bottom: 3px solid #0033A0;
+            font-weight: 600;
         }
         
         .close-modal {
@@ -380,34 +483,41 @@
             right: 15px;
             font-size: 24px;
             cursor: pointer;
-            color: #666;
+            color: #0033A0;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: #00247D;
         }
         
         .modal-message {
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-bottom: 20px;
             text-align: center;
+            font-weight: 500;
         }
         
         .modal-message.error {
-            background-color: #ffebee;
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
             color: #c62828;
             border: 1px solid #ffcdd2;
         }
         
         .modal-message.success {
-            background-color: #e8f5e9;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
             color: #2e7d32;
             border: 1px solid #c8e6c9;
         }
         
         /* Transfer page */
         .transfer-form {
-            background-color: white;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.08);
+            border: 1px solid #e0e7ff;
         }
         
         .form-row {
@@ -423,42 +533,53 @@
         .steps {
             display: flex;
             margin-bottom: 30px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6ebff 100%);
+            border-radius: 10px;
+            padding: 5px;
         }
         
         .step {
             flex: 1;
             text-align: center;
-            padding: 10px;
+            padding: 15px;
             position: relative;
+            color: #666;
+            font-weight: 500;
         }
         
         .step.active {
-            color: #ff6b00;
-            font-weight: bold;
+            color: #0033A0;
+            font-weight: 600;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 51, 160, 0.1);
         }
         
         .step-number {
             display: inline-block;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
             border-radius: 50%;
-            background-color: #e0e0e0;
-            margin-bottom: 5px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #d0d9ff 100%);
+            margin-bottom: 8px;
+            color: #666;
+            font-weight: 600;
         }
         
         .step.active .step-number {
-            background-color: #ff6b00;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
             color: white;
         }
         
         /* Credit score */
         .credit-score-card {
-            background-color: white;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.08);
             margin-bottom: 30px;
+            border: 1px solid #e0e7ff;
         }
         
         .score-header {
@@ -469,43 +590,50 @@
         }
         
         .score-value {
-            font-size: 60px;
-            font-weight: bold;
-            color: #1a2b4c;
+            font-size: 64px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .score-label {
             font-size: 24px;
-            color: #666;
+            color: #0033A0;
+            font-weight: 600;
+            margin-top: 10px;
         }
         
         .progress-bar {
-            height: 10px;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-            margin: 20px 0;
+            height: 12px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #d0d9ff 100%);
+            border-radius: 6px;
+            margin: 25px 0;
             overflow: hidden;
         }
         
         .progress-fill {
             height: 100%;
-            background-color: #4caf50;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
             width: 80%;
         }
         
         /* Expense analysis */
         .expense-card {
-            background-color: white;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.08);
             margin-bottom: 30px;
+            border: 1px solid #e0e7ff;
         }
         
         .expense-total {
-            font-size: 32px;
-            font-weight: bold;
-            color: #1a2b4c;
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin: 20px 0;
             text-align: center;
         }
@@ -517,12 +645,13 @@
         .category-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
         
         .category-bar {
             height: 10px;
-            background-color: #e0e0e0;
+            background: linear-gradient(135deg, #e0e7ff 0%, #d0d9ff 100%);
             border-radius: 5px;
             overflow: hidden;
         }
@@ -533,10 +662,11 @@
         
         /* Vacation fund */
         .vacation-card {
-            background-color: white;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 51, 160, 0.08);
+            border: 1px solid #e0e7ff;
         }
         
         .goal-progress {
@@ -545,14 +675,17 @@
         
         .goal-amount {
             font-size: 28px;
-            font-weight: bold;
-            color: #1a2b4c;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
         }
         
         .goal-percentage {
             font-size: 18px;
-            color: #4caf50;
+            color: #0033A0;
+            font-weight: 600;
             margin-bottom: 20px;
         }
         
@@ -560,10 +693,13 @@
         .footer {
             text-align: center;
             padding: 20px;
-            color: #666;
+            color: #0033A0;
             font-size: 14px;
-            border-top: 1px solid #e0e0e0;
+            border-top: 2px solid #e0e7ff;
             margin-top: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 51, 160, 0.05);
         }
         
         @media (max-width: 768px) {
@@ -580,15 +716,32 @@
                 display: flex;
                 overflow-x: auto;
                 margin-top: 10px;
+                padding: 0 10px;
             }
             
             .nav-item {
                 white-space: nowrap;
+                padding: 12px 15px;
+                font-size: 14px;
             }
             
             .form-row {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .accounts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-card {
+                min-width: 100%;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
             }
         }
     </style>
@@ -621,11 +774,16 @@
                     <a href="#" id="forgotPassword">Vous avez oublié votre mot de passe ou votre code d'utilisateur?</a>
                 </div>
                 
-                <div class="login-info">
-                    <h3>Informations de connexion fictives pour test :</h3>
-                    <p><strong>Utilisateur:</strong> daniel.client</p>
-                    <p><strong>Mot de passe:</strong> BMO2023</p>
-                    <p><strong>Ou utilisez:</strong> Utilisateur: test / Mot de passe: test123</p>
+                <div class="help-link">
+                    <a href="#">
+                        <i class="fas fa-question-circle"></i>
+                        Besoin d'aide pour vous connecter?
+                    </a>
+                </div>
+                
+                <div class="security-notice">
+                    <i class="fas fa-shield-alt"></i>
+                    Pour votre sécurité, nous vous recommandons de ne jamais partager vos informations de connexion.
                 </div>
             </form>
             
@@ -669,7 +827,7 @@
             <!-- Header -->
             <div class="header">
                 <div class="user-info">
-                    <h1 id="greeting">Bonjour, Daniel</h1>
+                    <h1 id="greeting">Bonjour, Christophe Livince</h1>
                     <p id="currentDate">Mardi 17 octobre 2023</p>
                 </div>
                 <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
@@ -863,9 +1021,9 @@
                     <h3 style="margin-top: 30px;">Aperçu de votre crédit</h3>
                     <p>Voici les facteurs qui influencent votre score de crédit. Gardez un œil sur ces éléments pour comprendre ce qui affecte le plus votre score!</p>
                     
-                    <div style="margin-top: 20px; padding: 20px; background-color: #e8f5e9; border-radius: 5px;">
-                        <h4><i class="fas fa-check-circle" style="color: #4caf50;"></i> Historique des paiements</h4>
-                        <p>Impact extrêmement élevé</p>
+                    <div style="margin-top: 20px; padding: 20px; border-radius: 8px; background: linear-gradient(135deg, #f0f4ff 0%, #e6ebff 100%); border: 1px solid #d0d9ff;">
+                        <h4><i class="fas fa-check-circle" style="color: #0033A0;"></i> Historique des paiements</h4>
+                        <p style="color: #0033A0; font-weight: 500;">Impact extrêmement élevé</p>
                     </div>
                 </div>
             </div>
@@ -888,7 +1046,7 @@
                                 <span id="homeExpenses">44% - $6,088.68</span>
                             </div>
                             <div class="category-bar">
-                                <div class="category-fill" style="width: 44%; background-color: #1a2b4c;"></div>
+                                <div class="category-fill" style="width: 44%; background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);"></div>
                             </div>
                         </div>
                         
@@ -898,7 +1056,7 @@
                                 <span id="personalExpenses">12% - $1,635.73</span>
                             </div>
                             <div class="category-bar">
-                                <div class="category-fill" style="width: 12%; background-color: #ff6b00;"></div>
+                                <div class="category-fill" style="width: 12%; background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);"></div>
                             </div>
                         </div>
                         
@@ -908,7 +1066,7 @@
                                 <span id="taxExpenses">9% - $1,224.86</span>
                             </div>
                             <div class="category-bar">
-                                <div class="category-fill" style="width: 9%; background-color: #4caf50;"></div>
+                                <div class="category-fill" style="width: 9%; background: linear-gradient(135deg, #FF9800 0%, #EF6C00 100%);"></div>
                             </div>
                         </div>
                         
@@ -918,7 +1076,7 @@
                                 <span id="miscExpenses">8% - $1,184.01</span>
                             </div>
                             <div class="category-bar">
-                                <div class="category-fill" style="width: 8%; background-color: #9c27b0;"></div>
+                                <div class="category-fill" style="width: 8%; background: linear-gradient(135deg, #9C27B0 0%, #6A1B9A 100%);"></div>
                             </div>
                         </div>
                         
@@ -928,12 +1086,12 @@
                                 <span id="foodExpenses">8% - $1,164.81</span>
                             </div>
                             <div class="category-bar">
-                                <div class="category-fill" style="width: 8%; background-color: #2196f3;"></div>
+                                <div class="category-fill" style="width: 8%; background: linear-gradient(135deg, #2196F3 0%, #0D47A1 100%);"></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div style="margin-top: 30px; padding: 15px; background-color: #f5f5f5; border-radius: 5px;">
+                    <div style="margin-top: 30px; padding: 15px; border-radius: 8px; background: linear-gradient(135deg, #f0f4ff 0%, #e6ebff 100%); border: 1px solid #d0d9ff;">
                         <p>Au cours de cette période, vous avez reçu un remboursement total de <strong>$2,528.70</strong></p>
                         <button class="btn btn-primary" id="viewDetailsBtn" style="margin-top: 10px;">Voir les détails</button>
                     </div>
@@ -952,7 +1110,7 @@
                         <div class="goal-percentage" id="goalPercentage">88.9% vers l'objectif</div>
                         
                         <div class="progress-bar" style="margin: 15px 0;">
-                            <div class="progress-fill" id="goalProgressBar" style="width: 88.9%; background-color: #ff6b00;"></div>
+                            <div class="progress-fill" id="goalProgressBar" style="width: 88.9%; background: linear-gradient(135deg, #0033A0 0%, #00247D 100%);"></div>
                         </div>
                     </div>
                     
@@ -1004,7 +1162,7 @@
                     
                     <div style="margin-top: 20px;">
                         <p><strong>Dernière mise à jour:</strong> <span id="lastUpdate">14 juin 2022</span></p>
-                        <p><strong>Force du mot de passe:</strong> <span id="passwordStrength" style="color: #4caf50;">Fort</span></p>
+                        <p><strong>Force du mot de passe:</strong> <span id="passwordStrength" style="color: #0033A0; font-weight: 600;">Fort</span></p>
                     </div>
                 </div>
                 
@@ -1096,12 +1254,12 @@
         const expenses = {
             total: 12230.87,
             categories: {
-                home: { percentage: 44, amount: 6088.68, color: '#1a2b4c' },
-                personal: { percentage: 12, amount: 1635.73, color: '#ff6b00' },
-                taxes: { percentage: 9, amount: 1224.86, color: '#4caf50' },
-                misc: { percentage: 8, amount: 1184.01, color: '#9c27b0' },
-                food: { percentage: 8, amount: 1164.81, color: '#2196f3' },
-                insurance: { percentage: 7, amount: 980.99, color: '#ff9800' },
+                home: { percentage: 44, amount: 6088.68, color: '#0033A0' },
+                personal: { percentage: 12, amount: 1635.73, color: '#4CAF50' },
+                taxes: { percentage: 9, amount: 1224.86, color: '#FF9800' },
+                misc: { percentage: 8, amount: 1184.01, color: '#9C27B0' },
+                food: { percentage: 8, amount: 1164.81, color: '#2196F3' },
+                insurance: { percentage: 7, amount: 980.99, color: '#FF9800' },
                 travel: { percentage: 6, amount: 930.38, color: '#795548' }
             },
             refund: 2528.70
@@ -1155,14 +1313,20 @@
             
             document.getElementById('currentDate').textContent = `${dayName} ${day} ${month} ${year}`;
             
-            // Mettre à jour la salutation
-            const hour = now.getHours();
+            // Toujours afficher Christophe Livince comme nom d'utilisateur
+            updateGreeting();
+        }
+        
+        // Mettre à jour la salutation
+        function updateGreeting() {
+            const hour = new Date().getHours();
             let greeting = 'Bonjour';
             if (hour < 12) greeting = 'Bonjour';
             else if (hour < 18) greeting = 'Bon après-midi';
             else greeting = 'Bonsoir';
             
-            document.getElementById('greeting').textContent = `${greeting}, Daniel`;
+            // Toujours afficher Christophe Livince
+            document.getElementById('greeting').textContent = `${greeting}, Christophe Livince`;
         }
         
         // Configurer tous les écouteurs d'événements
@@ -1250,10 +1414,9 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // Informations de connexion fictives
+            // Seulement un utilisateur accepté : Christophe Livince
             const validCredentials = [
-                { user: 'daniel.client', pass: 'BMO2023' },
-                { user: 'test', pass: 'test123' }
+                { user: 'livince.client', pass: 'BM02023' }
             ];
             
             const isValid = validCredentials.some(cred => 
@@ -1261,7 +1424,7 @@
             );
             
             if (isValid) {
-                currentUser = username;
+                currentUser = 'christophe.livince';
                 
                 // Enregistrer la connexion dans l'historique
                 const now = new Date();
@@ -1277,11 +1440,14 @@
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('appContainer').style.display = 'flex';
                 
+                // Mettre à jour la salutation
+                updateGreeting();
+                
                 // Réinitialiser le formulaire
                 document.getElementById('loginForm').reset();
                 
                 // Afficher une alerte de bienvenue
-                openAlertModal('Connexion réussie', `Bienvenue ${username === 'daniel.client' ? 'Daniel' : 'Test User'}! Votre session a été ouverte avec succès.`);
+                openAlertModal('Connexion réussie', `Bienvenue Christophe Livince! Votre session a été ouverte avec succès.`);
             } else {
                 openAlertModal('Échec de connexion', 'Identifiant ou mot de passe incorrect. Veuillez réessayer.');
             }
@@ -1551,10 +1717,10 @@
                     infoContent = '<table style="width: 100%; margin-top: 10px; border-collapse: collapse;">';
                     loginHistory.forEach(login => {
                         infoContent += `
-                            <tr style="border-bottom: 1px solid #eee;">
-                                <td style="padding: 8px 0;">${login.date}</td>
-                                <td style="padding: 8px 0;">${login.device}</td>
-                                <td style="padding: 8px 0;">${login.location}</td>
+                            <tr style="border-bottom: 1px solid #e0e7ff;">
+                                <td style="padding: 8px 0; color: #0033A0;">${login.date}</td>
+                                <td style="padding: 8px 0; color: #0033A0;">${login.device}</td>
+                                <td style="padding: 8px 0; color: #0033A0;">${login.location}</td>
                             </tr>
                         `;
                     });
