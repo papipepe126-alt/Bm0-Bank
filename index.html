@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMO - Application Bancaire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #1a2b4c;
+            color: white;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 1px solid #2a3b5c;
+            color: #fff;
+        }
+        
+        .logo span {
+            color: #ff6b00;
+        }
+        
+        .nav-menu {
+            margin-top: 30px;
+        }
+        
+        .nav-item {
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background-color: #2a3b5c;
+        }
+        
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .user-info h1 {
+            color: #1a2b4c;
+            font-size: 28px;
+        }
+        
+        .user-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .logout-btn {
+            background-color: #ff6b00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background-color: #e05a00;
+        }
+        
+        /* Quick actions */
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .action-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-card i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #1a2b4c;
+        }
+        
+        /* Accounts section */
+        .accounts-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            color: #1a2b4c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b00;
+        }
+        
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .account-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .account-card.blocked {
+            border-left: 5px solid #ff3860;
+        }
+        
+        .account-card.blocked::after {
+            content: "COMPTE BLOQUÉ";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff3860;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .account-type {
+            font-weight: bold;
+            color: #1a2b4c;
+        }
+        
+        .account-number {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .account-balance {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a2b4c;
+        }
+        
+        .account-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #1a2b4c;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2a3b5c;
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* Login page */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1a2b4c;
+        }
+        
+        .login-box {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-title {
+            text-align: center;
+            color: #1a2b4c;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #ff6b00;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #ff6b00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-btn:hover {
+            background-color: #e05a00;
+        }
+        
+        .login-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login-links a {
+            color: #1a2b4c;
+            text-decoration: none;
+        }
+        
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-info {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+        
+        .login-info h3 {
+            margin-bottom: 10px;
+            color: #1a2b4c;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .modal-title {
+            font-size: 22px;
+            color: #1a2b4c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b00;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .modal-message {
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .modal-message.error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .modal-message.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        /* Transfer page */
+        .transfer-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .steps {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+        }
+        
+        .step.active {
+            color: #ff6b00;
+            font-weight: bold;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            margin-bottom: 5px;
+        }
+        
+        .step.active .step-number {
+            background-color: #ff6b00;
+            color: white;
+        }
+        
+        /* Credit score */
+        .credit-score-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .score-value {
+            font-size: 60px;
+            font-weight: bold;
+            color: #1a2b4c;
+        }
+        
+        .score-label {
+            font-size: 24px;
+            color: #666;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #4caf50;
+            width: 80%;
+        }
+        
+        /* Expense analysis */
+        .expense-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .expense-total {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a2b4c;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .expense-category {
+            margin-bottom: 15px;
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .category-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .category-fill {
+            height: 100%;
+        }
+        
+        /* Vacation fund */
+        .vacation-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .goal-progress {
+            margin: 20px 0;
+        }
+        
+        .goal-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a2b4c;
+            margin-bottom: 10px;
+        }
+        
+        .goal-percentage {
+            font-size: 18px;
+            color: #4caf50;
+            margin-bottom: 20px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 10px 0;
+            }
+            
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                margin-top: 10px;
+            }
+            
+            .nav-item {
+                white-space: nowrap;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">Ouverture de session</h1>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Numéro de carte ou code d'utilisateur</label>
+                    <input type="text" id="username" class="form-control" placeholder="Entrez votre identifiant" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" class="form-control" placeholder="Entrez votre mot de passe" required>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Se souvenir de moi</label>
+                </div>
+                
+                <button type="submit" class="login-btn">OUVERTURE DE SESSION</button>
+                
+                <div class="login-links">
+                    <a href="#" id="forgotPassword">Vous avez oublié votre mot de passe ou votre code d'utilisateur?</a>
+                </div>
+                
+                <div class="login-info">
+                    <h3>Informations de connexion fictives pour test :</h3>
+                    <p><strong>Utilisateur:</strong> daniel.client</p>
+                    <p><strong>Mot de passe:</strong> BMO2023</p>
+                    <p><strong>Ou utilisez:</strong> Utilisateur: test / Mot de passe: test123</p>
+                </div>
+            </form>
+            
+            <div class="login-links" style="margin-top: 30px;">
+                <p>Enregistrer une nouvelle carte pour les Services bancaires en ligne</p>
+                <p><strong>CARTE DE DÉBIT</strong> ou <strong>CARTE DE CRÉDIT</strong></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Application (hidden by default) -->
+    <div id="appContainer" class="container" style="display: none;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">BMO<span>Bank</span></div>
+            
+            <div class="nav-menu">
+                <div class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i> Tableau de bord
+                </div>
+                <div class="nav-item" data-page="transfer">
+                    <i class="fas fa-exchange-alt"></i> Virements
+                </div>
+                <div class="nav-item" data-page="credit">
+                    <i class="fas fa-chart-line"></i> Score de crédit
+                </div>
+                <div class="nav-item" data-page="expenses">
+                    <i class="fas fa-chart-pie"></i> Analyse des dépenses
+                </div>
+                <div class="nav-item" data-page="savings">
+                    <i class="fas fa-piggy-bank"></i> Épargne et objectifs
+                </div>
+                <div class="nav-item" data-page="security">
+                    <i class="fas fa-shield-alt"></i> Centre de sécurité
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="user-info">
+                    <h1 id="greeting">Bonjour, Daniel</h1>
+                    <p id="currentDate">Mardi 17 octobre 2023</p>
+                </div>
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <div class="action-card" data-action="credit">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>BMO CreditView</h3>
+                </div>
+                <div class="action-card" data-action="transfer">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Effectuer un virement</h3>
+                </div>
+                <div class="action-card" data-action="zelle">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Envoyer de l'argent avec Zelle</h3>
+                </div>
+                <div class="action-card" data-action="deposit">
+                    <i class="fas fa-money-check"></i>
+                    <h3>Dépôts</h3>
+                </div>
+            </div>
+            
+            <!-- Dashboard Page -->
+            <div id="dashboardPage" class="page-content">
+                <div class="accounts-section">
+                    <h2 class="section-title">Vos comptes</h2>
+                    
+                    <div class="accounts-grid">
+                        <!-- Everyday Checking -->
+                        <div class="account-card">
+                            <div class="account-header">
+                                <div>
+                                    <div class="account-type">Everyday Checking</div>
+                                    <div class="account-number">*6016</div>
+                                </div>
+                            </div>
+                            <div class="account-balance" id="balance-6016">$7,473.22</div>
+                            <p>Solde disponible</p>
+                            <div class="account-actions">
+                                <button class="btn btn-primary transfer-btn" data-from="6016">Virement</button>
+                                <button class="btn btn-secondary">Détails</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Portfolio Checking -->
+                        <div class="account-card">
+                            <div class="account-header">
+                                <div>
+                                    <div class="account-type">Portfolio Checking</div>
+                                    <div class="account-number">*9460</div>
+                                </div>
+                            </div>
+                            <div class="account-balance" id="balance-9460">$2,344.49</div>
+                            <p>Solde disponible</p>
+                            <div class="account-actions">
+                                <button class="btn btn-primary transfer-btn" data-from="9460">Virement</button>
+                                <button class="btn btn-secondary">Détails</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Smart Money -->
+                        <div class="account-card">
+                            <div class="account-header">
+                                <div>
+                                    <div class="account-type">Smart Money</div>
+                                    <div class="account-number">*2310</div>
+                                </div>
+                            </div>
+                            <div class="account-balance" id="balance-2310">$5,021.57</div>
+                            <p>Solde disponible</p>
+                            <div class="account-actions">
+                                <button class="btn btn-primary transfer-btn" data-from="2310">Virement</button>
+                                <button class="btn btn-secondary">Détails</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Compte bloqué -->
+                        <div class="account-card blocked">
+                            <div class="account-header">
+                                <div>
+                                    <div class="account-type">Compte bloqué - Christophe Livince</div>
+                                    <div class="account-number">*929390</div>
+                                </div>
+                            </div>
+                            <div class="account-balance">$929,390.20</div>
+                            <p>Solde bloqué - Non disponible</p>
+                            <div class="account-actions">
+                                <button class="btn btn-secondary" disabled>Virement impossible</button>
+                                <button class="btn btn-secondary">Détails</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transfer Page -->
+            <div id="transferPage" class="page-content" style="display: none;">
+                <h2 class="section-title">Effectuer un virement</h2>
+                
+                <div class="transfer-form">
+                    <div class="steps">
+                        <div class="step active" id="step1">
+                            <div class="step-number">1</div>
+                            <div>Montant et comptes</div>
+                        </div>
+                        <div class="step" id="step2">
+                            <div class="step-number">2</div>
+                            <div>Vérification</div>
+                        </div>
+                    </div>
+                    
+                    <form id="transferForm">
+                        <div class="form-group">
+                            <label for="transferAmount">Montant</label>
+                            <input type="number" id="transferAmount" class="form-control" value="500.00" step="0.01" min="0.01" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="fromAccount">Depuis le compte</label>
+                                <select id="fromAccount" class="form-control" required>
+                                    <option value="6016">Everyday Checking *6016 - $7,473.22</option>
+                                    <option value="9460">Portfolio Checking *9460 - $2,344.49</option>
+                                    <option value="2310">Smart Money *2310 - $5,021.57</option>
+                                    <option value="929390" disabled>Compte bloqué *929390 - $929,390.20 (BLOQUÉ)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-col">
+                                <label for="toAccount">Vers le compte</label>
+                                <select id="toAccount" class="form-control" required>
+                                    <option value="7679">Statement Savings *7679 - $5,014.68</option>
+                                    <option value="6016">Everyday Checking *6016 - $7,473.22</option>
+                                    <option value="9460">Portfolio Checking *9460 - $2,344.49</option>
+                                    <option value="2310">Smart Money *2310 - $5,021.57</option>
+                                    <option value="929390" disabled>Compte bloqué *929390 - $929,390.20 (BLOQUÉ)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transferFrequency">Fréquence</label>
+                            <select id="transferFrequency" class="form-control">
+                                <option value="once">Une fois</option>
+                                <option value="weekly">Hebdomadaire</option>
+                                <option value="biweekly">Bi-hebdomadaire</option>
+                                <option value="monthly">Mensuel</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transferDate">Date du virement</label>
+                            <input type="date" id="transferDate" class="form-control" value="2023-10-17" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transferMemo">Note (optionnel)</label>
+                            <input type="text" id="transferMemo" class="form-control" placeholder="Ajouter une note">
+                        </div>
+                        
+                        <button type="submit" class="login-btn">CONTINUER À L'ÉTAPE 2</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Credit Score Page -->
+            <div id="creditPage" class="page-content" style="display: none;">
+                <h2 class="section-title">Votre score de crédit</h2>
+                
+                <div class="credit-score-card">
+                    <div class="score-header">
+                        <div>
+                            <div class="score-value">804</div>
+                            <div class="score-label">Excellent</div>
+                        </div>
+                        <div>
+                            <p>Basé sur VantageScore® 3.0</p>
+                            <p>Prochaine mise à jour disponible le 21/06/2023 <i class="fas fa-smile" style="color: #4caf50;"></i></p>
+                        </div>
+                    </div>
+                    
+                    <p>Aucun changement depuis le 28 avril 2023</p>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px;">Aperçu de votre crédit</h3>
+                    <p>Voici les facteurs qui influencent votre score de crédit. Gardez un œil sur ces éléments pour comprendre ce qui affecte le plus votre score!</p>
+                    
+                    <div style="margin-top: 20px; padding: 20px; background-color: #e8f5e9; border-radius: 5px;">
+                        <h4><i class="fas fa-check-circle" style="color: #4caf50;"></i> Historique des paiements</h4>
+                        <p>Impact extrêmement élevé</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Expenses Page -->
+            <div id="expensesPage" class="page-content" style="display: none;">
+                <h2 class="section-title">Analyse des dépenses</h2>
+                
+                <div class="expense-card">
+                    <h3>Tous les comptes de dépenses</h3>
+                    <p><strong>Ce mois-ci</strong> 01/06/2023 - 23/06/2023</p>
+                    
+                    <div class="expense-total" id="expenseTotal">$12,230.87</div>
+                    <p>TOTAL DES DÉPENSES</p>
+                    
+                    <div class="expense-categories" style="margin-top: 30px;">
+                        <div class="expense-category">
+                            <div class="category-header">
+                                <span>Dépenses du foyer</span>
+                                <span id="homeExpenses">44% - $6,088.68</span>
+                            </div>
+                            <div class="category-bar">
+                                <div class="category-fill" style="width: 44%; background-color: #1a2b4c;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="expense-category">
+                            <div class="category-header">
+                                <span>Personnel & Famille</span>
+                                <span id="personalExpenses">12% - $1,635.73</span>
+                            </div>
+                            <div class="category-bar">
+                                <div class="category-fill" style="width: 12%; background-color: #ff6b00;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="expense-category">
+                            <div class="category-header">
+                                <span>Impôts</span>
+                                <span id="taxExpenses">9% - $1,224.86</span>
+                            </div>
+                            <div class="category-bar">
+                                <div class="category-fill" style="width: 9%; background-color: #4caf50;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="expense-category">
+                            <div class="category-header">
+                                <span>Dépenses diverses</span>
+                                <span id="miscExpenses">8% - $1,184.01</span>
+                            </div>
+                            <div class="category-bar">
+                                <div class="category-fill" style="width: 8%; background-color: #9c27b0;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="expense-category">
+                            <div class="category-header">
+                                <span>Dépenses alimentaires</span>
+                                <span id="foodExpenses">8% - $1,164.81</span>
+                            </div>
+                            <div class="category-bar">
+                                <div class="category-fill" style="width: 8%; background-color: #2196f3;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding: 15px; background-color: #f5f5f5; border-radius: 5px;">
+                        <p>Au cours de cette période, vous avez reçu un remboursement total de <strong>$2,528.70</strong></p>
+                        <button class="btn btn-primary" id="viewDetailsBtn" style="margin-top: 10px;">Voir les détails</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Savings Page -->
+            <div id="savingsPage" class="page-content" style="display: none;">
+                <h2 class="section-title">Épargne et objectifs</h2>
+                
+                <div class="vacation-card">
+                    <h3>Fonds de vacances</h3>
+                    
+                    <div class="goal-progress">
+                        <div class="goal-amount" id="goalAmount">$4,000.83 / $4,500</div>
+                        <div class="goal-percentage" id="goalPercentage">88.9% vers l'objectif</div>
+                        
+                        <div class="progress-bar" style="margin: 15px 0;">
+                            <div class="progress-fill" id="goalProgressBar" style="width: 88.9%; background-color: #ff6b00;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <p><strong>Montant de l'objectif</strong></p>
+                            <p>$4,500.00</p>
+                        </div>
+                        <div class="form-col">
+                            <p><strong>Date de début</strong></p>
+                            <p>27 mai 2022</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <p><strong>Date de fin</strong></p>
+                            <p>27 juin 2022</p>
+                        </div>
+                        <div class="form-col">
+                            <p><strong>Fréquence d'épargne</strong></p>
+                            <p>Bi-hebdomadaire</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <button class="btn btn-primary" id="setupRecurringBtn" style="width: 100%; margin-bottom: 10px;">CONFIGURER UN VIREMENT RÉCURRENT</button>
+                        <button class="btn btn-secondary" id="editGoalBtn" style="width: 100%;">MODIFIER L'OBJECTIF D'ÉPARGNE</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Security Page -->
+            <div id="securityPage" class="page-content" style="display: none;">
+                <h2 class="section-title">Centre de sécurité</h2>
+                
+                <div class="account-card" style="margin-bottom: 20px;">
+                    <h3>Protégeons votre compte.</h3>
+                    <p>Security hub</p>
+                </div>
+                
+                <div class="account-card" style="margin-bottom: 20px;">
+                    <h3>INFORMATIONS DE CONNEXION</h3>
+                    
+                    <div style="margin-top: 15px;">
+                        <button class="btn btn-primary" id="changeUserIdBtn" style="margin-right: 10px;">Changer l'identifiant</button>
+                        <button class="btn btn-primary" id="changePasswordBtn">Changer le mot de passe</button>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <p><strong>Dernière mise à jour:</strong> <span id="lastUpdate">14 juin 2022</span></p>
+                        <p><strong>Force du mot de passe:</strong> <span id="passwordStrength" style="color: #4caf50;">Fort</span></p>
+                    </div>
+                </div>
+                
+                <div class="account-card">
+                    <h3>Sécurité mobile</h3>
+                    <p>Gérez les appareils connectés à votre compte.</p>
+                    <button class="btn btn-secondary" id="viewDevicesBtn" style="margin-top: 10px;">Voir les appareils</button>
+                </div>
+                
+                <div class="account-card" style="margin-top: 20px;">
+                    <h3>Historique de connexion</h3>
+                    <p>Consultez les connexions récentes à votre compte.</p>
+                    <button class="btn btn-secondary" id="viewLoginHistoryBtn" style="margin-top: 10px;">Voir l'historique</button>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+                <p>BMO Bank - Application bancaire sécurisée</p>
+                <p>© 2023 BMO Financial Group. Tous droits réservés.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Transfer Modal -->
+    <div id="transferModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Confirmation de virement</h2>
+            
+            <div id="transferMessage" class="modal-message">
+                <!-- Message will be inserted here -->
+            </div>
+            
+            <div id="transferDetails" style="margin-bottom: 20px;">
+                <!-- Transfer details will be inserted here -->
+            </div>
+            
+            <button id="confirmTransferBtn" class="login-btn">Confirmer le virement</button>
+        </div>
+    </div>
+    
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <span class="close-alert-modal">&times;</span>
+            <h2 class="modal-title" id="alertTitle">Alerte</h2>
+            
+            <div id="alertMessage" class="modal-message">
+                <!-- Message will be inserted here -->
+            </div>
+            
+            <button id="closeAlertBtn" class="login-btn">Fermer</button>
+        </div>
+    </div>
+    
+    <!-- Security Modal -->
+    <div id="securityModal" class="modal">
+        <div class="modal-content">
+            <span class="close-security-modal">&times;</span>
+            <h2 class="modal-title" id="securityTitle">Centre de sécurité</h2>
+            
+            <div id="securityMessage" style="margin-bottom: 20px;">
+                <!-- Message will be inserted here -->
+            </div>
+            
+            <div id="securityForm" style="display: none;">
+                <!-- Form will be inserted here -->
+            </div>
+            
+            <div id="securityInfo" style="display: none;">
+                <!-- Info will be inserted here -->
+            </div>
+            
+            <button id="securityActionBtn" class="login-btn">Confirmer</button>
+        </div>
+    </div>
+    
+    <script>
+        // Données de l'application
+        const accounts = {
+            '6016': { name: 'Everyday Checking', balance: 7473.22, type: 'checking', blocked: false },
+            '9460': { name: 'Portfolio Checking', balance: 2344.49, type: 'checking', blocked: false },
+            '2310': { name: 'Smart Money', balance: 5021.57, type: 'checking', blocked: false },
+            '7679': { name: 'Statement Savings', balance: 5014.68, type: 'savings', blocked: false },
+            '929390': { name: 'Compte bloqué - Christophe Livince', balance: 929390.20, type: 'blocked', blocked: true }
+        };
+        
+        const expenses = {
+            total: 12230.87,
+            categories: {
+                home: { percentage: 44, amount: 6088.68, color: '#1a2b4c' },
+                personal: { percentage: 12, amount: 1635.73, color: '#ff6b00' },
+                taxes: { percentage: 9, amount: 1224.86, color: '#4caf50' },
+                misc: { percentage: 8, amount: 1184.01, color: '#9c27b0' },
+                food: { percentage: 8, amount: 1164.81, color: '#2196f3' },
+                insurance: { percentage: 7, amount: 980.99, color: '#ff9800' },
+                travel: { percentage: 6, amount: 930.38, color: '#795548' }
+            },
+            refund: 2528.70
+        };
+        
+        const savingsGoal = {
+            current: 4000.83,
+            target: 4500,
+            startDate: '2022-05-27',
+            endDate: '2022-06-27',
+            frequency: 'Bi-hebdomadaire'
+        };
+        
+        const creditScore = {
+            score: 804,
+            rating: 'Excellent',
+            nextUpdate: '2023-06-21',
+            lastChange: '2023-04-28',
+            factors: [
+                { name: 'Historique des paiements', impact: 'Extrêmement élevé', status: 'good' }
+            ]
+        };
+        
+        // État de l'application
+        let currentUser = null;
+        let currentTransfer = null;
+        let loginHistory = [];
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mettre à jour la date
+            updateDate();
+            
+            // Configurer les écouteurs d'événements
+            setupEventListeners();
+            
+            // Initialiser l'historique de connexion
+            initLoginHistory();
+        });
+        
+        // Mettre à jour la date et l'heure
+        function updateDate() {
+            const now = new Date();
+            const days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+            
+            const dayName = days[now.getDay()];
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            document.getElementById('currentDate').textContent = `${dayName} ${day} ${month} ${year}`;
+            
+            // Mettre à jour la salutation
+            const hour = now.getHours();
+            let greeting = 'Bonjour';
+            if (hour < 12) greeting = 'Bonjour';
+            else if (hour < 18) greeting = 'Bon après-midi';
+            else greeting = 'Bonsoir';
+            
+            document.getElementById('greeting').textContent = `${greeting}, Daniel`;
+        }
+        
+        // Configurer tous les écouteurs d'événements
+        function setupEventListeners() {
+            // Formulaire de connexion
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('forgotPassword').addEventListener('click', handleForgotPassword);
+            
+            // Déconnexion
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    switchPage(this.dataset.page);
+                });
+            });
+            
+            // Actions rapides
+            document.querySelectorAll('.action-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const action = this.dataset.action;
+                    handleQuickAction(action);
+                });
+            });
+            
+            // Boutons de virement depuis les comptes
+            document.querySelectorAll('.transfer-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const fromAccount = this.dataset.from;
+                    openTransferPage(fromAccount);
+                });
+            });
+            
+            // Formulaire de virement
+            document.getElementById('transferForm').addEventListener('submit', handleTransferForm);
+            
+            // Modals
+            document.querySelector('.close-modal').addEventListener('click', closeTransferModal);
+            document.querySelector('.close-alert-modal').addEventListener('click', closeAlertModal);
+            document.querySelector('.close-security-modal').addEventListener('click', closeSecurityModal);
+            document.getElementById('closeAlertBtn').addEventListener('click', closeAlertModal);
+            document.getElementById('confirmTransferBtn').addEventListener('click', confirmTransfer);
+            
+            // Boutons de sécurité
+            document.getElementById('changeUserIdBtn').addEventListener('click', () => openSecurityModal('changeUserId'));
+            document.getElementById('changePasswordBtn').addEventListener('click', () => openSecurityModal('changePassword'));
+            document.getElementById('viewDevicesBtn').addEventListener('click', () => openSecurityModal('viewDevices'));
+            document.getElementById('viewLoginHistoryBtn').addEventListener('click', () => openSecurityModal('viewLoginHistory'));
+            document.getElementById('securityActionBtn').addEventListener('click', handleSecurityAction);
+            
+            // Boutons d'épargne
+            document.getElementById('setupRecurringBtn').addEventListener('click', () => openAlertModal('Configurer un virement récurrent', 'Cette fonctionnalité vous permet de configurer des virements automatiques réguliers vers votre objectif d\'épargne.'));
+            document.getElementById('editGoalBtn').addEventListener('click', () => openAlertModal('Modifier l\'objectif d\'épargne', 'Cette fonctionnalité vous permet de modifier le montant, la date de fin ou la fréquence de votre objectif d\'épargne.'));
+            
+            // Bouton de détails des dépenses
+            document.getElementById('viewDetailsBtn').addEventListener('click', () => openAlertModal('Détails des dépenses', 'Cette fonctionnalité afficherait une vue détaillée de toutes vos transactions et catégories de dépenses pour la période sélectionnée.'));
+            
+            // Fermer les modals en cliquant à l'extérieur
+            window.addEventListener('click', function(event) {
+                const transferModal = document.getElementById('transferModal');
+                const alertModal = document.getElementById('alertModal');
+                const securityModal = document.getElementById('securityModal');
+                
+                if (event.target === transferModal) closeTransferModal();
+                if (event.target === alertModal) closeAlertModal();
+                if (event.target === securityModal) closeSecurityModal();
+            });
+        }
+        
+        // Initialiser l'historique de connexion
+        function initLoginHistory() {
+            loginHistory = [
+                { date: '2023-10-17 09:15:23', device: 'Chrome sur Windows', location: 'Montréal, QC' },
+                { date: '2023-10-16 14:30:45', device: 'Safari sur iPhone', location: 'Montréal, QC' },
+                { date: '2023-10-15 19:20:12', device: 'App BMO Mobile', location: 'Montréal, QC' },
+                { date: '2023-10-14 11:05:33', device: 'Chrome sur Windows', location: 'Montréal, QC' }
+            ];
+        }
+        
+        // Gérer la connexion
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Informations de connexion fictives
+            const validCredentials = [
+                { user: 'daniel.client', pass: 'BMO2023' },
+                { user: 'test', pass: 'test123' }
+            ];
+            
+            const isValid = validCredentials.some(cred => 
+                cred.user === username && cred.pass === password
+            );
+            
+            if (isValid) {
+                currentUser = username;
+                
+                // Enregistrer la connexion dans l'historique
+                const now = new Date();
+                const loginDate = now.toISOString().split('T')[0];
+                const loginTime = now.toTimeString().split(' ')[0];
+                loginHistory.unshift({
+                    date: `${loginDate} ${loginTime}`,
+                    device: navigator.userAgent.substring(0, 50) + '...',
+                    location: 'Montréal, QC (estimé)'
+                });
+                
+                // Afficher l'application
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('appContainer').style.display = 'flex';
+                
+                // Réinitialiser le formulaire
+                document.getElementById('loginForm').reset();
+                
+                // Afficher une alerte de bienvenue
+                openAlertModal('Connexion réussie', `Bienvenue ${username === 'daniel.client' ? 'Daniel' : 'Test User'}! Votre session a été ouverte avec succès.`);
+            } else {
+                openAlertModal('Échec de connexion', 'Identifiant ou mot de passe incorrect. Veuillez réessayer.');
+            }
+        }
+        
+        // Gérer "Mot de passe oublié"
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            openAlertModal('Mot de passe oublié', 'Un lien de réinitialisation de mot de passe a été envoyé à votre adresse email enregistrée. Veuillez vérifier votre boîte de réception.');
+        }
+        
+        // Gérer la déconnexion
+        function handleLogout() {
+            // Afficher la page de connexion
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('appContainer').style.display = 'none';
+            
+            // Réinitialiser l'utilisateur
+            currentUser = null;
+            
+            // Afficher un message de confirmation
+            openAlertModal('Déconnexion', 'Vous avez été déconnecté avec succès. À bientôt!');
+        }
+        
+        // Changer de page
+        function switchPage(pageId) {
+            // Masquer toutes les pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Afficher la page sélectionnée
+            document.getElementById(pageId + 'Page').style.display = 'block';
+            
+            // Mettre à jour la navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            document.querySelector(`.nav-item[data-page="${pageId}"]`).classList.add('active');
+            
+            // Mettre à jour le titre de la page si nécessaire
+            if (pageId === 'dashboard') {
+                updateAccountBalances();
+            } else if (pageId === 'savings') {
+                updateSavingsGoal();
+            }
+        }
+        
+        // Gérer les actions rapides
+        function handleQuickAction(action) {
+            switch(action) {
+                case 'credit':
+                    switchPage('credit');
+                    break;
+                case 'transfer':
+                    switchPage('transfer');
+                    break;
+                case 'zelle':
+                    openAlertModal('Zelle', 'Cette fonctionnalité vous permettrait d\'envoyer de l\'argent instantanément à des amis et à la famille avec Zelle®.');
+                    break;
+                case 'deposit':
+                    openAlertModal('Dépôts', 'Cette fonctionnalité vous permettrait de déposer un chèque en le prenant en photo avec votre appareil mobile.');
+                    break;
+            }
+        }
+        
+        // Ouvrir la page de virement avec un compte spécifique
+        function openTransferPage(fromAccount) {
+            switchPage('transfer');
+            
+            // Sélectionner le compte d'origine
+            document.getElementById('fromAccount').value = fromAccount;
+        }
+        
+        // Gérer le formulaire de virement
+        function handleTransferForm(e) {
+            e.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('transferAmount').value);
+            const fromAccount = document.getElementById('fromAccount').value;
+            const toAccount = document.getElementById('toAccount').value;
+            const frequency = document.getElementById('transferFrequency').value;
+            const date = document.getElementById('transferDate').value;
+            const memo = document.getElementById('transferMemo').value;
+            
+            // Vérifier si le compte source ou destination est bloqué
+            if (fromAccount === '929390' || toAccount === '929390') {
+                openAlertModal('Virement impossible', 'Le virement ne peut pas être effectué car un des comptes est bloqué. Veuillez sélectionner un autre compte.');
+                return;
+            }
+            
+            // Vérifier si le montant est valide
+            if (isNaN(amount) || amount <= 0) {
+                openAlertModal('Montant invalide', 'Veuillez saisir un montant valide supérieur à 0.');
+                return;
+            }
+            
+            // Vérifier si le compte source a suffisamment de fonds
+            if (accounts[fromAccount].balance < amount) {
+                openAlertModal('Fonds insuffisants', `Votre compte ${accounts[fromAccount].name} n'a pas suffisamment de fonds pour effectuer ce virement.`);
+                return;
+            }
+            
+            // Vérifier que le compte source et destination sont différents
+            if (fromAccount === toAccount) {
+                openAlertModal('Comptes identiques', 'Vous ne pouvez pas effectuer un virement vers le même compte. Veuillez sélectionner un compte différent.');
+                return;
+            }
+            
+            // Enregistrer les détails du virement
+            currentTransfer = {
+                amount: amount,
+                fromAccount: fromAccount,
+                toAccount: toAccount,
+                frequency: frequency,
+                date: date,
+                memo: memo
+            };
+            
+            // Afficher la modal de confirmation
+            showTransferConfirmation();
+        }
+        
+        // Afficher la confirmation de virement
+        function showTransferConfirmation() {
+            const transfer = currentTransfer;
+            const fromAccount = accounts[transfer.fromAccount];
+            const toAccount = accounts[transfer.toAccount];
+            
+            // Mettre à jour les étapes
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            
+            // Mettre à jour les détails
+            document.getElementById('transferDetails').innerHTML = `
+                <p><strong>Montant:</strong> $${transfer.amount.toFixed(2)}</p>
+                <p><strong>Depuis:</strong> ${fromAccount.name} *${transfer.fromAccount}</p>
+                <p><strong>Vers:</strong> ${toAccount.name} *${transfer.toAccount}</p>
+                <p><strong>Fréquence:</strong> ${getFrequencyText(transfer.frequency)}</p>
+                <p><strong>Date:</strong> ${formatDate(transfer.date)}</p>
+                ${transfer.memo ? `<p><strong>Note:</strong> ${transfer.memo}</p>` : ''}
+            `;
+            
+            // Afficher le message
+            document.getElementById('transferMessage').className = 'modal-message';
+            document.getElementById('transferMessage').textContent = 'Veuillez vérifier les détails du virement ci-dessous avant de confirmer.';
+            
+            // Ouvrir la modal
+            document.getElementById('transferModal').style.display = 'flex';
+        }
+        
+        // Confirmer le virement
+        function confirmTransfer() {
+            const transfer = currentTransfer;
+            
+            // Mettre à jour les soldes des comptes
+            accounts[transfer.fromAccount].balance -= transfer.amount;
+            accounts[transfer.toAccount].balance += transfer.amount;
+            
+            // Mettre à jour l'affichage des soldes
+            updateAccountBalances();
+            
+            // Fermer la modal
+            closeTransferModal();
+            
+            // Réinitialiser le formulaire
+            document.getElementById('transferForm').reset();
+            document.getElementById('transferAmount').value = '500.00';
+            document.getElementById('transferDate').value = '2023-10-17';
+            
+            // Réinitialiser les étapes
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('step2').classList.remove('active');
+            
+            // Afficher un message de succès
+            openAlertModal('Virement effectué', `Votre virement de $${transfer.amount.toFixed(2)} a été effectué avec succès. Le nouveau solde de votre compte ${accounts[transfer.fromAccount].name} est $${accounts[transfer.fromAccount].balance.toFixed(2)}.`);
+            
+            // Réinitialiser le virement courant
+            currentTransfer = null;
+        }
+        
+        // Fermer la modal de virement
+        function closeTransferModal() {
+            document.getElementById('transferModal').style.display = 'none';
+        }
+        
+        // Ouvrir une modal d'alerte
+        function openAlertModal(title, message) {
+            document.getElementById('alertTitle').textContent = title;
+            document.getElementById('alertMessage').textContent = message;
+            document.getElementById('alertMessage').className = 'modal-message';
+            document.getElementById('alertModal').style.display = 'flex';
+        }
+        
+        // Fermer la modal d'alerte
+        function closeAlertModal() {
+            document.getElementById('alertModal').style.display = 'none';
+        }
+        
+        // Ouvrir une modal de sécurité
+        function openSecurityModal(action) {
+            document.getElementById('securityTitle').textContent = getSecurityTitle(action);
+            document.getElementById('securityForm').style.display = 'none';
+            document.getElementById('securityInfo').style.display = 'none';
+            document.getElementById('securityActionBtn').style.display = 'block';
+            
+            let message = '';
+            let showForm = false;
+            let showInfo = false;
+            let infoContent = '';
+            
+            switch(action) {
+                case 'changeUserId':
+                    message = 'Vous êtes sur le point de changer votre identifiant de connexion. Veuillez saisir votre nouveau identifiant ci-dessous.';
+                    showForm = true;
+                    document.getElementById('securityForm').innerHTML = `
+                        <div class="form-group">
+                            <label for="newUserId">Nouvel identifiant</label>
+                            <input type="text" id="newUserId" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPasswordUserId">Confirmez votre mot de passe</label>
+                            <input type="password" id="confirmPasswordUserId" class="form-control" required>
+                        </div>
+                    `;
+                    document.getElementById('securityActionBtn').textContent = 'Changer l\'identifiant';
+                    break;
+                    
+                case 'changePassword':
+                    message = 'Pour des raisons de sécurité, veuillez saisir votre mot de passe actuel et votre nouveau mot de passe.';
+                    showForm = true;
+                    document.getElementById('securityForm').innerHTML = `
+                        <div class="form-group">
+                            <label for="currentPassword">Mot de passe actuel</label>
+                            <input type="password" id="currentPassword" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">Nouveau mot de passe</label>
+                            <input type="password" id="newPassword" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmez le nouveau mot de passe</label>
+                            <input type="password" id="confirmPassword" class="form-control" required>
+                        </div>
+                    `;
+                    document.getElementById('securityActionBtn').textContent = 'Changer le mot de passe';
+                    break;
+                    
+                case 'viewDevices':
+                    message = 'Appareils actuellement connectés à votre compte:';
+                    showInfo = true;
+                    infoContent = `
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Chrome sur Windows</strong> - Connecté aujourd'hui à 09:15</li>
+                            <li><strong>Safari sur iPhone</strong> - Connecté hier à 14:30</li>
+                            <li><strong>App BMO Mobile</strong> - Connecté il y a 2 jours à 19:20</li>
+                        </ul>
+                        <p style="margin-top: 15px;">Si vous ne reconnaissez pas un appareil, vous pouvez le déconnecter à distance.</p>
+                    `;
+                    document.getElementById('securityActionBtn').textContent = 'Fermer';
+                    break;
+                    
+                case 'viewLoginHistory':
+                    message = 'Historique des connexions récentes:';
+                    showInfo = true;
+                    infoContent = '<table style="width: 100%; margin-top: 10px; border-collapse: collapse;">';
+                    loginHistory.forEach(login => {
+                        infoContent += `
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 8px 0;">${login.date}</td>
+                                <td style="padding: 8px 0;">${login.device}</td>
+                                <td style="padding: 8px 0;">${login.location}</td>
+                            </tr>
+                        `;
+                    });
+                    infoContent += '</table>';
+                    document.getElementById('securityActionBtn').textContent = 'Fermer';
+                    break;
+            }
+            
+            document.getElementById('securityMessage').textContent = message;
+            
+            if (showForm) {
+                document.getElementById('securityForm').style.display = 'block';
+            }
+            
+            if (showInfo) {
+                document.getElementById('securityInfo').innerHTML = infoContent;
+                document.getElementById('securityInfo').style.display = 'block';
+            }
+            
+            document.getElementById('securityModal').style.display = 'flex';
+        }
+        
+        // Gérer l'action de sécurité
+        function handleSecurityAction() {
+            const title = document.getElementById('securityTitle').textContent;
+            
+            if (title.includes('Changer l\'identifiant')) {
+                const newUserId = document.getElementById('newUserId').value;
+                const confirmPassword = document.getElementById('confirmPasswordUserId').value;
+                
+                if (!newUserId || !confirmPassword) {
+                    openAlertModal('Erreur', 'Veuillez remplir tous les champs.');
+                    return;
+                }
+                
+                closeSecurityModal();
+                openAlertModal('Identifiant changé', `Votre identifiant a été changé avec succès. Votre nouvel identifiant est: ${newUserId}`);
+                
+            } else if (title.includes('Changer le mot de passe')) {
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (!currentPassword || !newPassword || !confirmPassword) {
+                    openAlertModal('Erreur', 'Veuillez remplir tous les champs.');
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    openAlertModal('Erreur', 'Les nouveaux mots de passe ne correspondent pas.');
+                    return;
+                }
+                
+                closeSecurityModal();
+                openAlertModal('Mot de passe changé', 'Votre mot de passe a été changé avec succès. Vous devrez utiliser votre nouveau mot de passe pour votre prochaine connexion.');
+                
+            } else {
+                closeSecurityModal();
+            }
+        }
+        
+        // Fermer la modal de sécurité
+        function closeSecurityModal() {
+            document.getElementById('securityModal').style.display = 'none';
+        }
+        
+        // Mettre à jour les soldes des comptes
+        function updateAccountBalances() {
+            for (const accountNumber in accounts) {
+                const balanceElement = document.getElementById(`balance-${accountNumber}`);
+                if (balanceElement) {
+                    balanceElement.textContent = `$${accounts[accountNumber].balance.toFixed(2)}`;
+                }
+            }
+        }
+        
+        // Mettre à jour l'objectif d'épargne
+        function updateSavingsGoal() {
+            const percentage = (savingsGoal.current / savingsGoal.target * 100).toFixed(1);
+            
+            document.getElementById('goalAmount').textContent = `$${savingsGoal.current.toFixed(2)} / $${savingsGoal.target.toFixed(2)}`;
+            document.getElementById('goalPercentage').textContent = `${percentage}% vers l'objectif`;
+            document.getElementById('goalProgressBar').style.width = `${percentage}%`;
+        }
+        
+        // Obtenir le titre de sécurité
+        function getSecurityTitle(action) {
+            switch(action) {
+                case 'changeUserId': return 'Changer l\'identifiant';
+                case 'changePassword': return 'Changer le mot de passe';
+                case 'viewDevices': return 'Sécurité mobile';
+                case 'viewLoginHistory': return 'Historique de connexion';
+                default: return 'Centre de sécurité';
+            }
+        }
+        
+        // Obtenir le texte de fréquence
+        function getFrequencyText(frequency) {
+            switch(frequency) {
+                case 'once': return 'Une fois';
+                case 'weekly': return 'Hebdomadaire';
+                case 'biweekly': return 'Bi-hebdomadaire';
+                case 'monthly': return 'Mensuel';
+                default: return 'Une fois';
+            }
+        }
+        
+        // Formater une date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+    </script>
+</body>
+</html>
