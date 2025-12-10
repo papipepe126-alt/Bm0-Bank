@@ -253,6 +253,13 @@
             margin-bottom: 5px;
         }
         
+        .account-status {
+            color: #d32f2f;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
         .account-actions {
             margin-top: 20px;
             display: flex;
@@ -291,6 +298,13 @@
             background: linear-gradient(135deg, #e0e7ff 0%, #d0d9ff 100%);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 51, 160, 0.1);
+        }
+        
+        .btn-disabled {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            color: #999;
+            border: 1px solid #ddd;
+            cursor: not-allowed;
         }
         
         /* Login page */
@@ -503,6 +517,12 @@
             background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
             color: #c62828;
             border: 1px solid #ffcdd2;
+        }
+        
+        .modal-message.warning {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            color: #ff8f00;
+            border: 1px solid #ffd54f;
         }
         
         .modal-message.success {
@@ -755,12 +775,12 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Numéro de carte ou code d'utilisateur</label>
-                    <input type="text" id="username" class="form-control" placeholder="Entrez votre identifiant" required>
+                    <input type="text" id="username" class="form-control" placeholder="Entrez votre identifiant" value="livince.client" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" class="form-control" placeholder="Entrez votre mot de passe" required>
+                    <input type="password" id="password" class="form-control" placeholder="Entrez votre mot de passe" value="BM02023" required>
                 </div>
                 
                 <div class="checkbox-group">
@@ -775,7 +795,7 @@
                 </div>
                 
                 <div class="help-link">
-                    <a href="#">
+                    <a href="#" id="showHelp">
                         <i class="fas fa-question-circle"></i>
                         Besoin d'aide pour vous connecter?
                     </a>
@@ -856,11 +876,18 @@
             <!-- Dashboard Page -->
             <div id="dashboardPage" class="page-content">
                 <div class="accounts-section">
-                    <h2 class="section-title">Vos comptes</h2>
+                    <h2 class="section-title">Vos comptes (TOUS BLOQUÉS)</h2>
+                    
+                    <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border: 1px solid #ffd54f; border-radius: 8px; padding: 15px; margin-bottom: 25px;">
+                        <p style="color: #ff8f00; font-weight: 600; text-align: center;">
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            ATTENTION : Tous vos comptes sont actuellement bloqués. Aucun virement ne peut être effectué.
+                        </p>
+                    </div>
                     
                     <div class="accounts-grid">
-                        <!-- Everyday Checking -->
-                        <div class="account-card">
+                        <!-- Everyday Checking - BLOQUÉ -->
+                        <div class="account-card blocked">
                             <div class="account-header">
                                 <div>
                                     <div class="account-type">Everyday Checking</div>
@@ -868,15 +895,16 @@
                                 </div>
                             </div>
                             <div class="account-balance" id="balance-6016">$7,473.22</div>
-                            <p>Solde disponible</p>
+                            <div class="account-status">Fonds bloqués - Non disponibles</div>
+                            <p>Solde bloqué</p>
                             <div class="account-actions">
-                                <button class="btn btn-primary transfer-btn" data-from="6016">Virement</button>
+                                <button class="btn btn-disabled" disabled>Virement impossible</button>
                                 <button class="btn btn-secondary">Détails</button>
                             </div>
                         </div>
                         
-                        <!-- Portfolio Checking -->
-                        <div class="account-card">
+                        <!-- Portfolio Checking - BLOQUÉ -->
+                        <div class="account-card blocked">
                             <div class="account-header">
                                 <div>
                                     <div class="account-type">Portfolio Checking</div>
@@ -884,15 +912,16 @@
                                 </div>
                             </div>
                             <div class="account-balance" id="balance-9460">$2,344.49</div>
-                            <p>Solde disponible</p>
+                            <div class="account-status">Fonds bloqués - Non disponibles</div>
+                            <p>Solde bloqué</p>
                             <div class="account-actions">
-                                <button class="btn btn-primary transfer-btn" data-from="9460">Virement</button>
+                                <button class="btn btn-disabled" disabled>Virement impossible</button>
                                 <button class="btn btn-secondary">Détails</button>
                             </div>
                         </div>
                         
-                        <!-- Smart Money -->
-                        <div class="account-card">
+                        <!-- Smart Money - BLOQUÉ -->
+                        <div class="account-card blocked">
                             <div class="account-header">
                                 <div>
                                     <div class="account-type">Smart Money</div>
@@ -900,14 +929,32 @@
                                 </div>
                             </div>
                             <div class="account-balance" id="balance-2310">$5,021.57</div>
-                            <p>Solde disponible</p>
+                            <div class="account-status">Fonds bloqués - Non disponibles</div>
+                            <p>Solde bloqué</p>
                             <div class="account-actions">
-                                <button class="btn btn-primary transfer-btn" data-from="2310">Virement</button>
+                                <button class="btn btn-disabled" disabled>Virement impossible</button>
                                 <button class="btn btn-secondary">Détails</button>
                             </div>
                         </div>
                         
-                        <!-- Compte bloqué -->
+                        <!-- Statement Savings - BLOQUÉ -->
+                        <div class="account-card blocked">
+                            <div class="account-header">
+                                <div>
+                                    <div class="account-type">Statement Savings</div>
+                                    <div class="account-number">*7679</div>
+                                </div>
+                            </div>
+                            <div class="account-balance">$5,014.68</div>
+                            <div class="account-status">Fonds bloqués - Non disponibles</div>
+                            <p>Solde bloqué</p>
+                            <div class="account-actions">
+                                <button class="btn btn-disabled" disabled>Virement impossible</button>
+                                <button class="btn btn-secondary">Détails</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Compte principal bloqué -->
                         <div class="account-card blocked">
                             <div class="account-header">
                                 <div>
@@ -916,9 +963,10 @@
                                 </div>
                             </div>
                             <div class="account-balance">$929,390.20</div>
-                            <p>Solde bloqué - Non disponible</p>
+                            <div class="account-status">Fonds bloqués - Non disponibles</div>
+                            <p>Solde bloqué</p>
                             <div class="account-actions">
-                                <button class="btn btn-secondary" disabled>Virement impossible</button>
+                                <button class="btn btn-disabled" disabled>Virement impossible</button>
                                 <button class="btn btn-secondary">Détails</button>
                             </div>
                         </div>
@@ -929,6 +977,13 @@
             <!-- Transfer Page -->
             <div id="transferPage" class="page-content" style="display: none;">
                 <h2 class="section-title">Effectuer un virement</h2>
+                
+                <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border: 1px solid #ffd54f; border-radius: 8px; padding: 15px; margin-bottom: 25px;">
+                    <p style="color: #ff8f00; font-weight: 600; text-align: center;">
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        ATTENTION : Tous vos comptes sont actuellement bloqués. Aucun virement ne peut être effectué.
+                    </p>
+                </div>
                 
                 <div class="transfer-form">
                     <div class="steps">
@@ -952,9 +1007,10 @@
                             <div class="form-col">
                                 <label for="fromAccount">Depuis le compte</label>
                                 <select id="fromAccount" class="form-control" required>
-                                    <option value="6016">Everyday Checking *6016 - $7,473.22</option>
-                                    <option value="9460">Portfolio Checking *9460 - $2,344.49</option>
-                                    <option value="2310">Smart Money *2310 - $5,021.57</option>
+                                    <option value="6016" disabled>Everyday Checking *6016 - $7,473.22 (BLOQUÉ)</option>
+                                    <option value="9460" disabled>Portfolio Checking *9460 - $2,344.49 (BLOQUÉ)</option>
+                                    <option value="2310" disabled>Smart Money *2310 - $5,021.57 (BLOQUÉ)</option>
+                                    <option value="7679" disabled>Statement Savings *7679 - $5,014.68 (BLOQUÉ)</option>
                                     <option value="929390" disabled>Compte bloqué *929390 - $929,390.20 (BLOQUÉ)</option>
                                 </select>
                             </div>
@@ -962,10 +1018,10 @@
                             <div class="form-col">
                                 <label for="toAccount">Vers le compte</label>
                                 <select id="toAccount" class="form-control" required>
-                                    <option value="7679">Statement Savings *7679 - $5,014.68</option>
-                                    <option value="6016">Everyday Checking *6016 - $7,473.22</option>
-                                    <option value="9460">Portfolio Checking *9460 - $2,344.49</option>
-                                    <option value="2310">Smart Money *2310 - $5,021.57</option>
+                                    <option value="7679" disabled>Statement Savings *7679 - $5,014.68 (BLOQUÉ)</option>
+                                    <option value="6016" disabled>Everyday Checking *6016 - $7,473.22 (BLOQUÉ)</option>
+                                    <option value="9460" disabled>Portfolio Checking *9460 - $2,344.49 (BLOQUÉ)</option>
+                                    <option value="2310" disabled>Smart Money *2310 - $5,021.57 (BLOQUÉ)</option>
                                     <option value="929390" disabled>Compte bloqué *929390 - $929,390.20 (BLOQUÉ)</option>
                                 </select>
                             </div>
@@ -973,7 +1029,7 @@
                         
                         <div class="form-group">
                             <label for="transferFrequency">Fréquence</label>
-                            <select id="transferFrequency" class="form-control">
+                            <select id="transferFrequency" class="form-control" disabled>
                                 <option value="once">Une fois</option>
                                 <option value="weekly">Hebdomadaire</option>
                                 <option value="biweekly">Bi-hebdomadaire</option>
@@ -983,16 +1039,22 @@
                         
                         <div class="form-group">
                             <label for="transferDate">Date du virement</label>
-                            <input type="date" id="transferDate" class="form-control" value="2023-10-17" required>
+                            <input type="date" id="transferDate" class="form-control" value="2023-10-17" required disabled>
                         </div>
                         
                         <div class="form-group">
                             <label for="transferMemo">Note (optionnel)</label>
-                            <input type="text" id="transferMemo" class="form-control" placeholder="Ajouter une note">
+                            <input type="text" id="transferMemo" class="form-control" placeholder="Ajouter une note" disabled>
                         </div>
                         
-                        <button type="submit" class="login-btn">CONTINUER À L'ÉTAPE 2</button>
+                        <button type="submit" class="login-btn" disabled>CONTINUER À L'ÉTAPE 2 (DÉSACTIVÉ)</button>
                     </form>
+                    
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button id="tryTransferBtn" class="btn btn-secondary" style="width: 100%;">
+                            Essayer d'effectuer un virement (Démo)
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -1242,12 +1304,12 @@
     </div>
     
     <script>
-        // Données de l'application
+        // Données de l'application - TOUS LES COMPTES BLOQUÉS
         const accounts = {
-            '6016': { name: 'Everyday Checking', balance: 7473.22, type: 'checking', blocked: false },
-            '9460': { name: 'Portfolio Checking', balance: 2344.49, type: 'checking', blocked: false },
-            '2310': { name: 'Smart Money', balance: 5021.57, type: 'checking', blocked: false },
-            '7679': { name: 'Statement Savings', balance: 5014.68, type: 'savings', blocked: false },
+            '6016': { name: 'Everyday Checking', balance: 7473.22, type: 'checking', blocked: true },
+            '9460': { name: 'Portfolio Checking', balance: 2344.49, type: 'checking', blocked: true },
+            '2310': { name: 'Smart Money', balance: 5021.57, type: 'checking', blocked: true },
+            '7679': { name: 'Statement Savings', balance: 5014.68, type: 'savings', blocked: true },
             '929390': { name: 'Compte bloqué - Christophe Livince', balance: 929390.20, type: 'blocked', blocked: true }
         };
         
@@ -1298,6 +1360,10 @@
             
             // Initialiser l'historique de connexion
             initLoginHistory();
+            
+            // Pré-remplir les identifiants pour faciliter la démonstration
+            document.getElementById('username').value = 'livince.client';
+            document.getElementById('password').value = 'BM02023';
         });
         
         // Mettre à jour la date et l'heure
@@ -1334,6 +1400,7 @@
             // Formulaire de connexion
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('forgotPassword').addEventListener('click', handleForgotPassword);
+            document.getElementById('showHelp').addEventListener('click', showHelp);
             
             // Déconnexion
             document.getElementById('logoutBtn').addEventListener('click', handleLogout);
@@ -1353,16 +1420,9 @@
                 });
             });
             
-            // Boutons de virement depuis les comptes
-            document.querySelectorAll('.transfer-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const fromAccount = this.dataset.from;
-                    openTransferPage(fromAccount);
-                });
-            });
-            
             // Formulaire de virement
             document.getElementById('transferForm').addEventListener('submit', handleTransferForm);
+            document.getElementById('tryTransferBtn').addEventListener('click', tryTransfer);
             
             // Modals
             document.querySelector('.close-modal').addEventListener('click', closeTransferModal);
@@ -1379,8 +1439,8 @@
             document.getElementById('securityActionBtn').addEventListener('click', handleSecurityAction);
             
             // Boutons d'épargne
-            document.getElementById('setupRecurringBtn').addEventListener('click', () => openAlertModal('Configurer un virement récurrent', 'Cette fonctionnalité vous permet de configurer des virements automatiques réguliers vers votre objectif d\'épargne.'));
-            document.getElementById('editGoalBtn').addEventListener('click', () => openAlertModal('Modifier l\'objectif d\'épargne', 'Cette fonctionnalité vous permet de modifier le montant, la date de fin ou la fréquence de votre objectif d\'épargne.'));
+            document.getElementById('setupRecurringBtn').addEventListener('click', () => openAlertModal('Configurer un virement récurrent', 'Cette fonctionnalité vous permettrait de configurer des virements automatiques réguliers vers votre objectif d\'épargne.'));
+            document.getElementById('editGoalBtn').addEventListener('click', () => openAlertModal('Modifier l\'objectif d\'épargne', 'Cette fonctionnalité vous permettrait de modifier le montant, la date de fin ou la fréquence de votre objectif d\'épargne.'));
             
             // Bouton de détails des dépenses
             document.getElementById('viewDetailsBtn').addEventListener('click', () => openAlertModal('Détails des dépenses', 'Cette fonctionnalité afficherait une vue détaillée de toutes vos transactions et catégories de dépenses pour la période sélectionnée.'));
@@ -1395,6 +1455,25 @@
                 if (event.target === alertModal) closeAlertModal();
                 if (event.target === securityModal) closeSecurityModal();
             });
+        }
+        
+        // Afficher l'aide pour la connexion
+        function showHelp(e) {
+            e.preventDefault();
+            openAlertModal('Aide pour la connexion', 'Pour vous connecter à cette démonstration, utilisez les identifiants suivants:<br><br><strong>Utilisateur:</strong> livince.client<br><strong>Mot de passe:</strong> BM02023<br><br>Ces informations sont fournies uniquement à des fins de test.');
+        }
+        
+        // Essayer d'effectuer un virement (démo)
+        function tryTransfer(e) {
+            e.preventDefault();
+            openAlertModal('Virement impossible', 
+                '<div style="text-align: center; padding: 20px;">' +
+                '<i class="fas fa-ban" style="font-size: 48px; color: #d32f2f; margin-bottom: 15px;"></i>' +
+                '<h3 style="color: #d32f2f; margin-bottom: 15px;">Virement impossible</h3>' +
+                '<p><strong>Tous vos comptes sont actuellement bloqués.</strong></p>' +
+                '<p>Les fonds ne sont pas disponibles pour effectuer des virements.</p>' +
+                '<p>Veuillez contacter le service client pour plus d\'informations.</p>' +
+                '</div>');
         }
         
         // Initialiser l'historique de connexion
@@ -1414,16 +1493,8 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // Seulement un utilisateur accepté : Christophe Livince
-            const validCredentials = [
-                { user: 'livince.client', pass: 'BM02023' }
-            ];
-            
-            const isValid = validCredentials.some(cred => 
-                cred.user === username && cred.pass === password
-            );
-            
-            if (isValid) {
+            // Vérification SIMPLIFIÉE - CORRIGÉE
+            if (username === 'livince.client' && password === 'BM02023') {
                 currentUser = 'christophe.livince';
                 
                 // Enregistrer la connexion dans l'historique
@@ -1443,13 +1514,33 @@
                 // Mettre à jour la salutation
                 updateGreeting();
                 
-                // Réinitialiser le formulaire
-                document.getElementById('loginForm').reset();
+                // Désactiver le formulaire de virement
+                disableTransferForm();
                 
-                // Afficher une alerte de bienvenue
-                openAlertModal('Connexion réussie', `Bienvenue Christophe Livince! Votre session a été ouverte avec succès.`);
+                // Afficher une alerte de bienvenue avec avertissement
+                openAlertModal('Connexion réussie', 
+                    `Bienvenue Christophe Livince! Votre session a été ouverte avec succès.<br><br>
+                    <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border: 1px solid #ffd54f; border-radius: 8px; padding: 15px; margin-top: 15px;">
+                        <p style="color: #ff8f00; font-weight: 600;">
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            ATTENTION : Tous vos comptes sont actuellement bloqués.
+                        </p>
+                        <p style="color: #ff8f00; font-size: 14px; margin-top: 5px;">
+                            Aucun virement ne peut être effectué pour le moment.
+                        </p>
+                    </div>`);
             } else {
-                openAlertModal('Échec de connexion', 'Identifiant ou mot de passe incorrect. Veuillez réessayer.');
+                openAlertModal('Échec de connexion', 'Identifiant ou mot de passe incorrect. Veuillez réessayer.<br><br>Utilisez:<br><strong>Utilisateur:</strong> livince.client<br><strong>Mot de passe:</strong> BM02023');
+            }
+        }
+        
+        // Désactiver le formulaire de virement
+        function disableTransferForm() {
+            const form = document.getElementById('transferForm');
+            if (form) {
+                form.querySelectorAll('input, select, button').forEach(element => {
+                    element.disabled = true;
+                });
             }
         }
         
@@ -1480,20 +1571,19 @@
             });
             
             // Afficher la page sélectionnée
-            document.getElementById(pageId + 'Page').style.display = 'block';
+            const pageElement = document.getElementById(pageId + 'Page');
+            if (pageElement) {
+                pageElement.style.display = 'block';
+            }
             
             // Mettre à jour la navigation
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             
-            document.querySelector(`.nav-item[data-page="${pageId}"]`).classList.add('active');
-            
-            // Mettre à jour le titre de la page si nécessaire
-            if (pageId === 'dashboard') {
-                updateAccountBalances();
-            } else if (pageId === 'savings') {
-                updateSavingsGoal();
+            const navItem = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+            if (navItem) {
+                navItem.classList.add('active');
             }
         }
         
@@ -1505,9 +1595,15 @@
                     break;
                 case 'transfer':
                     switchPage('transfer');
+                    // Afficher un avertissement pour les virements
+                    setTimeout(function() {
+                        openAlertModal('Fonctionnalité limitée', 
+                            'La fonction de virement est actuellement désactivée car tous vos comptes sont bloqués.<br><br>' +
+                            '<strong>Les fonds ne sont pas disponibles pour effectuer des virements.</strong>');
+                    }, 500);
                     break;
                 case 'zelle':
-                    openAlertModal('Zelle', 'Cette fonctionnalité vous permettrait d\'envoyer de l\'argent instantanément à des amis et à la famille avec Zelle®.');
+                    openAlertModal('Zelle', 'Cette fonctionnalité vous permettrait d\'envoyer de l\'argent instantanément à des amis et à la famille avec Zelle®.<br><br><strong>Note :</strong> Cette fonctionnalité est actuellement désactivée car vos comptes sont bloqués.');
                     break;
                 case 'deposit':
                     openAlertModal('Dépôts', 'Cette fonctionnalité vous permettrait de déposer un chèque en le prenant en photo avec votre appareil mobile.');
@@ -1515,89 +1611,19 @@
             }
         }
         
-        // Ouvrir la page de virement avec un compte spécifique
-        function openTransferPage(fromAccount) {
-            switchPage('transfer');
-            
-            // Sélectionner le compte d'origine
-            document.getElementById('fromAccount').value = fromAccount;
-        }
-        
         // Gérer le formulaire de virement
         function handleTransferForm(e) {
             e.preventDefault();
             
-            const amount = parseFloat(document.getElementById('transferAmount').value);
-            const fromAccount = document.getElementById('fromAccount').value;
-            const toAccount = document.getElementById('toAccount').value;
-            const frequency = document.getElementById('transferFrequency').value;
-            const date = document.getElementById('transferDate').value;
-            const memo = document.getElementById('transferMemo').value;
-            
-            // Vérifier si le compte source ou destination est bloqué
-            if (fromAccount === '929390' || toAccount === '929390') {
-                openAlertModal('Virement impossible', 'Le virement ne peut pas être effectué car un des comptes est bloqué. Veuillez sélectionner un autre compte.');
-                return;
-            }
-            
-            // Vérifier si le montant est valide
-            if (isNaN(amount) || amount <= 0) {
-                openAlertModal('Montant invalide', 'Veuillez saisir un montant valide supérieur à 0.');
-                return;
-            }
-            
-            // Vérifier si le compte source a suffisamment de fonds
-            if (accounts[fromAccount].balance < amount) {
-                openAlertModal('Fonds insuffisants', `Votre compte ${accounts[fromAccount].name} n'a pas suffisamment de fonds pour effectuer ce virement.`);
-                return;
-            }
-            
-            // Vérifier que le compte source et destination sont différents
-            if (fromAccount === toAccount) {
-                openAlertModal('Comptes identiques', 'Vous ne pouvez pas effectuer un virement vers le même compte. Veuillez sélectionner un compte différent.');
-                return;
-            }
-            
-            // Enregistrer les détails du virement
-            currentTransfer = {
-                amount: amount,
-                fromAccount: fromAccount,
-                toAccount: toAccount,
-                frequency: frequency,
-                date: date,
-                memo: memo
-            };
-            
-            // Afficher la modal de confirmation
-            showTransferConfirmation();
-        }
-        
-        // Afficher la confirmation de virement
-        function showTransferConfirmation() {
-            const transfer = currentTransfer;
-            const fromAccount = accounts[transfer.fromAccount];
-            const toAccount = accounts[transfer.toAccount];
-            
-            // Mettre à jour les étapes
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
-            
-            // Mettre à jour les détails
-            document.getElementById('transferDetails').innerHTML = `
-                <p><strong>Montant:</strong> $${transfer.amount.toFixed(2)}</p>
-                <p><strong>Depuis:</strong> ${fromAccount.name} *${transfer.fromAccount}</p>
-                <p><strong>Vers:</strong> ${toAccount.name} *${transfer.toAccount}</p>
-                <p><strong>Fréquence:</strong> ${getFrequencyText(transfer.frequency)}</p>
-                <p><strong>Date:</strong> ${formatDate(transfer.date)}</p>
-                ${transfer.memo ? `<p><strong>Note:</strong> ${transfer.memo}</p>` : ''}
-            `;
-            
-            // Afficher le message
-            document.getElementById('transferMessage').className = 'modal-message';
-            document.getElementById('transferMessage').textContent = 'Veuillez vérifier les détails du virement ci-dessous avant de confirmer.';
-            
-            // Ouvrir la modal
-            document.getElementById('transferModal').style.display = 'flex';
+            // Toujours afficher un message d'erreur car tous les comptes sont bloqués
+            openAlertModal('Virement impossible', 
+                '<div style="text-align: center; padding: 20px;">' +
+                '<i class="fas fa-ban" style="font-size: 48px; color: #d32f2f; margin-bottom: 15px;"></i>' +
+                '<h3 style="color: #d32f2f; margin-bottom: 15px;">Virement impossible</h3>' +
+                '<p><strong>Tous vos comptes sont actuellement bloqués.</strong></p>' +
+                '<p>Les fonds ne sont pas disponibles pour effectuer des virements.</p>' +
+                '<p>Veuillez contacter le service client pour plus d\'informations.</p>' +
+                '</div>');
         }
         
         // Confirmer le virement
@@ -1605,26 +1631,23 @@
             const transfer = currentTransfer;
             
             // Mettre à jour les soldes des comptes
-            accounts[transfer.fromAccount].balance -= transfer.amount;
-            accounts[transfer.toAccount].balance += transfer.amount;
-            
-            // Mettre à jour l'affichage des soldes
-            updateAccountBalances();
+            if (accounts[transfer.fromAccount] && accounts[transfer.toAccount]) {
+                accounts[transfer.fromAccount].balance -= transfer.amount;
+                accounts[transfer.toAccount].balance += transfer.amount;
+                
+                // Mettre à jour l'affichage des soldes
+                updateAccountBalances();
+            }
             
             // Fermer la modal
             closeTransferModal();
-            
-            // Réinitialiser le formulaire
-            document.getElementById('transferForm').reset();
-            document.getElementById('transferAmount').value = '500.00';
-            document.getElementById('transferDate').value = '2023-10-17';
             
             // Réinitialiser les étapes
             document.getElementById('step1').classList.add('active');
             document.getElementById('step2').classList.remove('active');
             
             // Afficher un message de succès
-            openAlertModal('Virement effectué', `Votre virement de $${transfer.amount.toFixed(2)} a été effectué avec succès. Le nouveau solde de votre compte ${accounts[transfer.fromAccount].name} est $${accounts[transfer.fromAccount].balance.toFixed(2)}.`);
+            openAlertModal('Virement effectué', `Votre virement de $${transfer.amount.toFixed(2)} a été effectué avec succès.`);
             
             // Réinitialiser le virement courant
             currentTransfer = null;
@@ -1638,8 +1661,19 @@
         // Ouvrir une modal d'alerte
         function openAlertModal(title, message) {
             document.getElementById('alertTitle').textContent = title;
-            document.getElementById('alertMessage').textContent = message;
-            document.getElementById('alertMessage').className = 'modal-message';
+            document.getElementById('alertMessage').innerHTML = message;
+            
+            // Déterminer le type de message
+            if (title.includes('impossible') || title.includes('bloqué') || title.includes('erreur') || title.includes('Erreur')) {
+                document.getElementById('alertMessage').className = 'modal-message error';
+            } else if (title.includes('ATTENTION') || title.includes('Avertissement') || title.includes('limité')) {
+                document.getElementById('alertMessage').className = 'modal-message warning';
+            } else if (title.includes('succès') || title.includes('réussi') || title.includes('effectué')) {
+                document.getElementById('alertMessage').className = 'modal-message success';
+            } else {
+                document.getElementById('alertMessage').className = 'modal-message';
+            }
+            
             document.getElementById('alertModal').style.display = 'flex';
         }
         
@@ -1651,132 +1685,116 @@
         // Ouvrir une modal de sécurité
         function openSecurityModal(action) {
             document.getElementById('securityTitle').textContent = getSecurityTitle(action);
+            document.getElementById('securityMessage').innerHTML = getSecurityMessage(action);
+            
             document.getElementById('securityForm').style.display = 'none';
             document.getElementById('securityInfo').style.display = 'none';
-            document.getElementById('securityActionBtn').style.display = 'block';
             
-            let message = '';
-            let showForm = false;
-            let showInfo = false;
-            let infoContent = '';
-            
-            switch(action) {
-                case 'changeUserId':
-                    message = 'Vous êtes sur le point de changer votre identifiant de connexion. Veuillez saisir votre nouveau identifiant ci-dessous.';
-                    showForm = true;
-                    document.getElementById('securityForm').innerHTML = `
-                        <div class="form-group">
-                            <label for="newUserId">Nouvel identifiant</label>
-                            <input type="text" id="newUserId" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmPasswordUserId">Confirmez votre mot de passe</label>
-                            <input type="password" id="confirmPasswordUserId" class="form-control" required>
-                        </div>
-                    `;
-                    document.getElementById('securityActionBtn').textContent = 'Changer l\'identifiant';
-                    break;
-                    
-                case 'changePassword':
-                    message = 'Pour des raisons de sécurité, veuillez saisir votre mot de passe actuel et votre nouveau mot de passe.';
-                    showForm = true;
-                    document.getElementById('securityForm').innerHTML = `
-                        <div class="form-group">
-                            <label for="currentPassword">Mot de passe actuel</label>
-                            <input type="password" id="currentPassword" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="newPassword">Nouveau mot de passe</label>
-                            <input type="password" id="newPassword" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmPassword">Confirmez le nouveau mot de passe</label>
-                            <input type="password" id="confirmPassword" class="form-control" required>
-                        </div>
-                    `;
-                    document.getElementById('securityActionBtn').textContent = 'Changer le mot de passe';
-                    break;
-                    
-                case 'viewDevices':
-                    message = 'Appareils actuellement connectés à votre compte:';
-                    showInfo = true;
-                    infoContent = `
-                        <ul style="margin-left: 20px; margin-top: 10px;">
-                            <li><strong>Chrome sur Windows</strong> - Connecté aujourd'hui à 09:15</li>
-                            <li><strong>Safari sur iPhone</strong> - Connecté hier à 14:30</li>
-                            <li><strong>App BMO Mobile</strong> - Connecté il y a 2 jours à 19:20</li>
-                        </ul>
-                        <p style="margin-top: 15px;">Si vous ne reconnaissez pas un appareil, vous pouvez le déconnecter à distance.</p>
-                    `;
-                    document.getElementById('securityActionBtn').textContent = 'Fermer';
-                    break;
-                    
-                case 'viewLoginHistory':
-                    message = 'Historique des connexions récentes:';
-                    showInfo = true;
-                    infoContent = '<table style="width: 100%; margin-top: 10px; border-collapse: collapse;">';
-                    loginHistory.forEach(login => {
-                        infoContent += `
-                            <tr style="border-bottom: 1px solid #e0e7ff;">
-                                <td style="padding: 8px 0; color: #0033A0;">${login.date}</td>
-                                <td style="padding: 8px 0; color: #0033A0;">${login.device}</td>
-                                <td style="padding: 8px 0; color: #0033A0;">${login.location}</td>
-                            </tr>
-                        `;
-                    });
-                    infoContent += '</table>';
-                    document.getElementById('securityActionBtn').textContent = 'Fermer';
-                    break;
-            }
-            
-            document.getElementById('securityMessage').textContent = message;
-            
-            if (showForm) {
+            // Afficher le formulaire ou les informations selon l'action
+            if (action === 'changeUserId' || action === 'changePassword') {
                 document.getElementById('securityForm').style.display = 'block';
-            }
-            
-            if (showInfo) {
-                document.getElementById('securityInfo').innerHTML = infoContent;
+                document.getElementById('securityForm').innerHTML = getSecurityForm(action);
+            } else if (action === 'viewDevices' || action === 'viewLoginHistory') {
                 document.getElementById('securityInfo').style.display = 'block';
+                document.getElementById('securityInfo').innerHTML = getSecurityInfo(action);
             }
             
             document.getElementById('securityModal').style.display = 'flex';
+        }
+        
+        // Obtenir le titre de sécurité
+        function getSecurityTitle(action) {
+            switch(action) {
+                case 'changeUserId': return 'Changer l\'identifiant';
+                case 'changePassword': return 'Changer le mot de passe';
+                case 'viewDevices': return 'Appareils connectés';
+                case 'viewLoginHistory': return 'Historique de connexion';
+                default: return 'Centre de sécurité';
+            }
+        }
+        
+        // Obtenir le message de sécurité
+        function getSecurityMessage(action) {
+            switch(action) {
+                case 'changeUserId': return 'Pour votre sécurité, vous devrez vérifier votre identité avant de changer votre identifiant.';
+                case 'changePassword': return 'Choisissez un mot de passe fort contenant au moins 8 caractères avec des lettres, chiffres et symboles.';
+                case 'viewDevices': return 'Voici les appareils actuellement connectés à votre compte:';
+                case 'viewLoginHistory': return 'Voici les dernières connexions à votre compte:';
+                default: return '';
+            }
+        }
+        
+        // Obtenir le formulaire de sécurité
+        function getSecurityForm(action) {
+            if (action === 'changeUserId') {
+                return `
+                    <div class="form-group">
+                        <label for="newUserId">Nouvel identifiant</label>
+                        <input type="text" id="newUserId" class="form-control" placeholder="Entrez votre nouvel identifiant">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmUserId">Confirmer l'identifiant</label>
+                        <input type="text" id="confirmUserId" class="form-control" placeholder="Confirmez votre nouvel identifiant">
+                    </div>
+                `;
+            } else if (action === 'changePassword') {
+                return `
+                    <div class="form-group">
+                        <label for="currentPassword">Mot de passe actuel</label>
+                        <input type="password" id="currentPassword" class="form-control" placeholder="Entrez votre mot de passe actuel">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Nouveau mot de passe</label>
+                        <input type="password" id="newPassword" class="form-control" placeholder="Entrez votre nouveau mot de passe">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmer le mot de passe</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirmez votre nouveau mot de passe">
+                    </div>
+                `;
+            }
+            return '';
+        }
+        
+        // Obtenir les informations de sécurité
+        function getSecurityInfo(action) {
+            if (action === 'viewDevices') {
+                return `
+                    <div style="padding: 15px; background: #f8f9ff; border-radius: 8px; margin-bottom: 10px;">
+                        <p><strong>Chrome sur Windows</strong></p>
+                        <p style="color: #666; font-size: 14px;">Connecté depuis Montréal, QC</p>
+                        <p style="color: #666; font-size: 14px;">Dernière activité: Aujourd'hui 09:15</p>
+                    </div>
+                    <div style="padding: 15px; background: #f8f9ff; border-radius: 8px; margin-bottom: 10px;">
+                        <p><strong>Safari sur iPhone</strong></p>
+                        <p style="color: #666; font-size: 14px;">Connecté depuis Montréal, QC</p>
+                        <p style="color: #666; font-size: 14px;">Dernière activité: Hier 14:30</p>
+                    </div>
+                `;
+            } else if (action === 'viewLoginHistory') {
+                let html = '';
+                loginHistory.forEach(login => {
+                    html += `
+                        <div style="padding: 15px; background: #f8f9ff; border-radius: 8px; margin-bottom: 10px;">
+                            <p><strong>${login.date}</strong></p>
+                            <p style="color: #666; font-size: 14px;">${login.device}</p>
+                            <p style="color: #666; font-size: 14px;">${login.location}</p>
+                        </div>
+                    `;
+                });
+                return html;
+            }
+            return '';
         }
         
         // Gérer l'action de sécurité
         function handleSecurityAction() {
             const title = document.getElementById('securityTitle').textContent;
             
-            if (title.includes('Changer l\'identifiant')) {
-                const newUserId = document.getElementById('newUserId').value;
-                const confirmPassword = document.getElementById('confirmPasswordUserId').value;
-                
-                if (!newUserId || !confirmPassword) {
-                    openAlertModal('Erreur', 'Veuillez remplir tous les champs.');
-                    return;
-                }
-                
-                closeSecurityModal();
-                openAlertModal('Identifiant changé', `Votre identifiant a été changé avec succès. Votre nouvel identifiant est: ${newUserId}`);
-                
-            } else if (title.includes('Changer le mot de passe')) {
-                const currentPassword = document.getElementById('currentPassword').value;
-                const newPassword = document.getElementById('newPassword').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                
-                if (!currentPassword || !newPassword || !confirmPassword) {
-                    openAlertModal('Erreur', 'Veuillez remplir tous les champs.');
-                    return;
-                }
-                
-                if (newPassword !== confirmPassword) {
-                    openAlertModal('Erreur', 'Les nouveaux mots de passe ne correspondent pas.');
-                    return;
-                }
-                
-                closeSecurityModal();
-                openAlertModal('Mot de passe changé', 'Votre mot de passe a été changé avec succès. Vous devrez utiliser votre nouveau mot de passe pour votre prochaine connexion.');
-                
+            if (title.includes('identifiant')) {
+                openAlertModal('Identifiant modifié', 'Votre identifiant a été modifié avec succès. Vous devrez utiliser votre nouvel identifiant pour votre prochaine connexion.');
+            } else if (title.includes('mot de passe')) {
+                openAlertModal('Mot de passe modifié', 'Votre mot de passe a été modifié avec succès. Vous devrez utiliser votre nouveau mot de passe pour votre prochaine connexion.');
             } else {
                 closeSecurityModal();
             }
@@ -1789,10 +1807,10 @@
         
         // Mettre à jour les soldes des comptes
         function updateAccountBalances() {
-            for (const accountNumber in accounts) {
-                const balanceElement = document.getElementById(`balance-${accountNumber}`);
+            for (const [id, account] of Object.entries(accounts)) {
+                const balanceElement = document.getElementById(`balance-${id}`);
                 if (balanceElement) {
-                    balanceElement.textContent = `$${accounts[accountNumber].balance.toFixed(2)}`;
+                    balanceElement.textContent = `$${account.balance.toFixed(2)}`;
                 }
             }
         }
@@ -1800,21 +1818,15 @@
         // Mettre à jour l'objectif d'épargne
         function updateSavingsGoal() {
             const percentage = (savingsGoal.current / savingsGoal.target * 100).toFixed(1);
-            
-            document.getElementById('goalAmount').textContent = `$${savingsGoal.current.toFixed(2)} / $${savingsGoal.target.toFixed(2)}`;
+            document.getElementById('goalAmount').textContent = `$${savingsGoal.current.toFixed(2)} / $${savingsGoal.target}`;
             document.getElementById('goalPercentage').textContent = `${percentage}% vers l'objectif`;
             document.getElementById('goalProgressBar').style.width = `${percentage}%`;
         }
         
-        // Obtenir le titre de sécurité
-        function getSecurityTitle(action) {
-            switch(action) {
-                case 'changeUserId': return 'Changer l\'identifiant';
-                case 'changePassword': return 'Changer le mot de passe';
-                case 'viewDevices': return 'Sécurité mobile';
-                case 'viewLoginHistory': return 'Historique de connexion';
-                default: return 'Centre de sécurité';
-            }
+        // Formatage de date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR');
         }
         
         // Obtenir le texte de fréquence
@@ -1824,17 +1836,8 @@
                 case 'weekly': return 'Hebdomadaire';
                 case 'biweekly': return 'Bi-hebdomadaire';
                 case 'monthly': return 'Mensuel';
-                default: return 'Une fois';
+                default: return frequency;
             }
-        }
-        
-        // Formater une date
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
         }
     </script>
 </body>
